@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-  //constructor automactically called optional if you want to use it
+  //constructor called optionallly and automactically first if you want to use it
   // eslint-disable-next-line no-useless-constructor
   constructor(props){
     super(props);//reference to parent component because over writing
