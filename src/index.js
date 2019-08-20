@@ -2,22 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-  //constructor automactically called
+  //constructor automactically called optional if you want to use it
   // eslint-disable-next-line no-useless-constructor
   constructor(props){
     super(props);//reference to parent component because over writing
-    this.state = { lat: null };//null don't know yet what number is
+    this.state = { lat: null, errorMessage: '' };//null don't know yet what number is
 
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({ lat: position.coords.latitude });
       },
-      (err) => console.log(err)
+      (err) => {
+        this.setState({ errorMessage: err.message });
+      }
     );
   }
 
   render() {
-    return <div>Latitude: {this.state.lat}</div>
+    if (this.state.errorMessage && !this.state.lat){
+      return <div>Error: {this.state.errorMessage}</div>
+    }
+    
+    if (!this.state.errorMessage && this.state.lat){
+      return <div> Latitude: {this.state.lat} </div>
+    }
+
+    return <div>Loading!</div>
   }
 }
 
